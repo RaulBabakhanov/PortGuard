@@ -15,7 +15,11 @@ class SecurityHeaders
     {
         $response = $next($request);
 
-        $response->headers->set('X-Frame-Options', 'SAMEORIGIN');
+        // Demo: GitHub Pages (kısa URL) içinde iframe ile gösterilebilsin
+        $response->headers->set(
+            'Content-Security-Policy',
+            "frame-ancestors 'self' https://raulbabakhanov.github.io"
+        );
         $response->headers->set('X-Content-Type-Options', 'nosniff');
         $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');
         $response->headers->set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
